@@ -31,8 +31,12 @@ yarn build-dev #dev
 ```
 
 ## Check or Customize project structure at 
-```./_root``` folder
+```./_root``` #before run script
 
 ## Check or Customize initial modules install at 
-```./create-reactjs-webpack-project.sh``` file
+```./create-reactjs-webpack-project.sh``` #before run script
+
+## notes
+optimized for macosx. If you want to run on other platforms script may need slightly changes on seed commands and eventually at print functions. You may give a try but it's, not tested!
+ 
 
