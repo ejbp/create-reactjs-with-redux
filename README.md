@@ -30,10 +30,10 @@ yarn build-prod #prod
 yarn build-dev #dev
 ```
 
-## Check or Customize project structure at 
+## check or customize project structure at 
 ```./_root``` #before run script
 
-## Check or Customize initial modules install at 
+## check or customize initial modules install at 
 ```./create-reactjs-webpack-project.sh``` #before run script
 
 ## notes
