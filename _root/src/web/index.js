@@ -17,7 +17,7 @@ const history = createBrowserHistory({
   basename: __webpack_public_path__.replace("file://", "") //for certain cases (e.g. cordova)
 }); 
 
-history.listen(function(location) {
+history.listen( (location) => {
   ////Google Analytics
   //window.ga("set", "page", location.pathname + location.search);
   //window.ga("send", "pageview", location.pathname + location.search);
@@ -58,7 +58,7 @@ const styles = {
   screen: {
       width: "100%",
       height: "100%",
-      overflow: hidden
+      overflow: 'hidden'
   }
 }
 

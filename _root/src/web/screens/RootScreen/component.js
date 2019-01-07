@@ -20,12 +20,14 @@ class RootScreen extends React.Component {
     const {classes, lastSeenAt:seenAt } = this.props;
     const { lastSeenAt } = this.state;
 
-    const diff = lastSeenAt - seenAt; 
+    const diff = Math.round( (seenAt - lastSeenAt) / 1000); 
 
     return (
       <div className={classes.root}>
-        <div>Start developing on RootScreen component</div>
-        <div>You didn't refresh for {diff}ms</div>
+        <ul>
+          <li>Start developing on RootScreen component</li>
+          <li>You didn't refresh for {diff}s</li>
+        </ul>
       </div>
     );
   

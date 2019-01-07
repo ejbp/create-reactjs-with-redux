@@ -3,6 +3,7 @@ import { REHYDRATE } from "redux-persist";
 import actions from "../../actions";
 import selectors from './selectors';
 import traverse from "traverse";
+import moment from "moment";
 
 export { selectors };
 

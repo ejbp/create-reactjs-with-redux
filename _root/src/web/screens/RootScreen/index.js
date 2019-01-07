@@ -4,7 +4,7 @@ import { actions } from "src/store";
 import RootScreen from "./component";
 
 RootScreen.propTypes = {
-  lastSeenAt: PropTypes.object.isRequired
+  lastSeenAt: PropTypes.instanceOf(Date).isRequired
 };
 
 const mapStateToProps = (state, props) => {

@@ -1,7 +1,7 @@
 const migrations = {
-  1: state => {
+  /*2: state => {
     return {
       ...state
     }
-  }
+  }*/
 }

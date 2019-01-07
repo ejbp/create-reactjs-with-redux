@@ -111,5 +111,5 @@ npm i --save \
 
 #copying base structure
 cp -rf $SCRIPT_DIR/_root/* $DEST_DIR/.
-cp -rf $SCRIPT_DIR/_root/.* $DEST_DIR/.
+cp -rf $SCRIPT_DIR/_root/.babelrc $DEST_DIR/.babelrc
 

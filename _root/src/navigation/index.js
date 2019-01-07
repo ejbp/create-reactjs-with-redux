@@ -4,17 +4,18 @@ import RouteWithProps from "./RouteWithProps";
 import { Redirect } from "react-router";
 import { Switch } from "react-router"; // react-router v4
 //Screens
-import RootScreen from "src/web/screens/RootScreen";
+import RootScreen from "src_web/screens/RootScreen";
 
 const routes = props => {
   return (
     <Switch>
-      <RouteWithProps key="route-1" path="/" component={RootScreen} {...props} />      
+      <RouteWithProps key="route-1" path="/" component={RootScreen} {...props} />  
+      <RouteWithProps key="route-2" exact path="/index.html" component={RootScreen} {...props} />    
     </Switch>
   );
 };
 
-export default withDevice(routes);
+export default routes;
 
 /*
   <PrivateRoute key="route-x" exact path="/" component={Redirect} to="/index.html" {...props} />

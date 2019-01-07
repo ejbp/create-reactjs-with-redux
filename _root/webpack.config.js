@@ -187,7 +187,6 @@ const generalConfig = {
     
     new CleanWebpackPlugin([DIST_DIR]),
 
-    //new ExtractTextPlugin(path.resolve(__dirname, 'public/styles/app.css')),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // both options are optional
