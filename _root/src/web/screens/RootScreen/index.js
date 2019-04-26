@@ -8,8 +8,11 @@ RootScreen.propTypes = {
 };
 
 const mapStateToProps = (state, props) => {
+  const { user, ui } = state;
   return {
-    lastSeenAt: state.user.lastSeenAt
+    lastSeenAt: user.lastSeenAt,
+    user: user.profile,
+    uiState: ui
   };
 };
 
@@ -17,6 +20,9 @@ const mapActionToProps = dispatch => {
   return {
     touch: () => {
       dispatch(actions.user.touchUser());
+    },
+    fetchUser: () => {
+      dispatch(actions.user.fetchUser());
     }
   };
 };

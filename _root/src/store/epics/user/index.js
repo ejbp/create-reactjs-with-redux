@@ -1,5 +1,5 @@
 import { ofType, combineEpics } from "redux-observable";
-import { map, filter, ignoreElements } from "rxjs/operators";
+import { map, ignoreElements } from "rxjs/operators";
 import actions from "../../actions";
 
 const touchEvent = (action$, store) =>
@@ -8,7 +8,7 @@ const touchEvent = (action$, store) =>
       actions.user.touchUser.action
     ),
     map(action => {
-      console.log("Action captured on user epic: ", action);
+      __DEV__ && console.log("Action captured on user epic: ", action);
     }),
     ignoreElements()
   );

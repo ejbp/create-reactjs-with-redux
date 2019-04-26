@@ -4,18 +4,11 @@ import { MuiThemeProvider } from "@material-ui/core/styles";
 import { withStyles } from "@material-ui/core/styles";
 import { Provider } from "react-redux";
 import { ConnectedRouter } from "connected-react-router";
-import createBrowserHistory from "history/createBrowserHistory";
-//Material Theme & Styles
-import Theme from "src/theme";
-//Redux
-import { PersistGate } from "redux-persist/integration/react";
-import RouteComponent from "src/navigation";
+import { PersistGate } from "redux-persist/integration/react"; 
+import RouteComponent from "src/navigation"; 
 import configureStore from "src/store";
-
-//create history for navigation
-const history = createBrowserHistory({
-  basename: __webpack_public_path__.replace("file://", "") //for certain cases (e.g. cordova)
-}); 
+import history from 'src/navigation-history';
+import Theme from "src/theme"; //Material Theme & Styles
 
 history.listen( (location) => {
   ////Google Analytics

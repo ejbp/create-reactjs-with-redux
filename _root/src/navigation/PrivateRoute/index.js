@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PrivateRouteComponent from "./component";
 
 PrivateRouteComponent.propTypes = {
-  component: PropTypes.func.isRequired
+  component: PropTypes.any.isRequired
 };
 
 const mapStateToProps = ({user}, props) => {

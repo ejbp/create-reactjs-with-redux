@@ -1,25 +1,23 @@
-import { handleActions, combineActions } from "redux-actions";
+import { handleActions } from "redux-actions";
 import { REHYDRATE } from "redux-persist";
 import actions from "../../actions";
-import selectors from './selectors';
-import traverse from "traverse";
-import moment from "moment";
+import selectors from "./selectors";
 
 export { selectors };
 
 const initialState = {
   profile: undefined,
-  lastSeenAt: 0
-  // profile:
+  lastSeenAt: new Date()
 };
 
 export default handleActions(
   {
-    [REHYDRATE]: (state, { payload={}, meta }) => {
+    [REHYDRATE]: (state, { payload = {}, meta }) => {
       const nextState = payload.user || state;
-      return traverse(nextState).map(
-        val => (moment(val, moment.ISO_8601).isValid() ? new Date(val) : val)
-      )
+      return {
+        ...nextState,
+        lastSeenAt: typeof nextState.lastSeenAt == 'string' ? new Date(nextState.lastSeenAt) : nextState.lastSeenAt
+      }
     },
     [`${actions.user.fetchUser.action}_FULFILLED`]: (state, { payload, meta }) => ({
       ...state,

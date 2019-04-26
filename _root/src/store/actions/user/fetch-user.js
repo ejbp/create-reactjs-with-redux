@@ -8,7 +8,7 @@ const fetchUser = () => (dispatch, getState) => {
 
   return dispatch({
     type: FETCH_USER,
-    payload: fetch('https://randomuser.me/api/')
+    payload: fetch('https://randomuser.me/api/').then(response => response.json())
   });
 
 };

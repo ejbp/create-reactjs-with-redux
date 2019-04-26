@@ -2,13 +2,14 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-const UglifyJsWebpackPlugin = require('uglifyjs-webpack-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const CircularDependencyPlugin = require('circular-dependency-plugin')
 const PrettierPlugin = require("prettier-webpack-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin'); //HardSourceWebpackPlugin is a plugin for webpack to provide an intermediate caching step for modules.
 
 //Paths variables definition
 const sourcePath = path.join(__dirname, 'src');
@@ -23,13 +24,13 @@ const DIST_DIR = path.resolve(__dirname, 'web', 'dist');
 
 const generalConfig = {
   entry: {
-    index: ['@babel/polyfill', 'whatwg-fetch', path.resolve(webSourcePath, 'public-path.js'), path.resolve(webSourcePath, 'index.js')]
+    index: ['@babel/polyfill', 'whatwg-fetch', path.resolve(webSourcePath, 'index.js')]
   },
   output: {
     path: DIST_DIR,
-    filename: '[name].[chunkhash].bundle.js',
-    chunkFilename: '[name].[chunkhash].bundle.js',
-    sourceMapFilename: '[name].[chunkhash].bundle.map',
+    filename: '[name].bundle.js?id=[chunkhash]',
+    chunkFilename: '[name].bundle.js?id=[chunkhash]',
+    sourceMapFilename: '[name].bundle.map?id=[chunkhash]',
     publicPath: "/"
   },
   resolve: {
@@ -47,20 +48,26 @@ const generalConfig = {
     rules: [
       {
         test: /\.(js|jsx)$/,
-        include: /node_modules\/(query-string|strict-uri-encode|tinode-sdk|AsyncStorage)/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env']
-          }
-        }
+        include: [
+          /node_modules\/(query\-string|strict\-uri\-encode|tinode\-sdk|AsyncStorage|split\-on\-first|react\-emojione)/
+        ],
+        use: [{
+          loader: 'babel-loader'
+          }]
       },
       {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader'
-        }
+        use: [{
+            loader: 'babel-loader'
+          },
+          // {
+          //   loader: 'eslint-loader',
+          //   options: {
+          //     fix: true
+          //   }
+          // }
+        ]
       },
       {
         test: /\.(md|yml)$/,
@@ -185,7 +192,9 @@ const generalConfig = {
 
   plugins: [
     
-    new CleanWebpackPlugin([DIST_DIR]),
+    new CleanWebpackPlugin(),
+
+    new HardSourceWebpackPlugin(),
 
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
@@ -273,11 +282,7 @@ const prodConfig = {
       }
     },
     minimizer: [
-      new UglifyJsWebpackPlugin({
-        cache: false,
-        parallel: true, // uses all cores available on given machine
-        sourceMap: true
-      }),
+      new TerserPlugin(),
       new OptimizeCSSAssetsPlugin({
         assetNameRegExp: /\.optimize\.css$/g,
         cssProcessor: require('cssnano'),
